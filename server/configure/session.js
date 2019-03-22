@@ -3,7 +3,12 @@ const session = require('express-session');
 const pgSession = require('connect-pg-simple')(session);
 
 const pgStore = new pgSession({
-  conString: process.env.dataBase
+  pool: new require('pg').Pool({
+    user: 'postgres',
+    host: 'localhost',
+    database: 'monday',
+    port: 5432
+  })
 });
 
 module.exports = (app , db) => {
